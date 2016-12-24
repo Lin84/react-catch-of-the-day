@@ -130,4 +130,4 @@ export default class Order extends React.Component {
 		)
 	}
 }
-
+// continue with video #18, go to App.js
