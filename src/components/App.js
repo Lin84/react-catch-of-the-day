@@ -19,7 +19,7 @@
 // export default App;
 // // go to index.js
 
-// ======================================================================================================
+// ===========================================================================
 // // #6video-6: import created components Header, Order, Inventory:
 // import React from 'react';
 
@@ -46,51 +46,515 @@
 // // go to video 7: passing data with props
 
 
-// ======================================================================================================
-// #7video-1: passing tagline props in header component
+// ===========================================================================
+// // #7video-1: passing tagline props in header component
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+
+// class App extends React.Component {
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 				</div>
+
+// 				<Order />
+// 				<Inventory />
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// // ===========================================================================
+// // #13video-04:  constructor() and initial the state
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 				</div>
+
+// 				<Order />
+// 				<Inventory />
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+
+// // ===========================================================================
+// // #13video-05: create new method addFish(), in react is better instead to update straight the state is better to create the copy of state first = for perfomance purpose
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	addFish() {
+// 		// update our state	
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D 
+// 		// add in our new fish
+// 		//set state
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 				</div>
+
+// 				<Order />
+// 				<Inventory />
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// // ===========================================================================
+// // #13video-06: usint time stamp to make each fish unique, and setState to update the state of fishes
+
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state	
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D 
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 				</div>
+
+// 				<Order />
+// 				<Inventory />
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// // ===========================================================================
+// // #13video-07: passing the addFish as prop to Inventory component
+
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state	
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D 
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 				</div>
+
+// 				<Order />
+// 				<Inventory addFish={this.addFish}/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// // continue in Inventory.js component
+
+// // ===========================================================================
+// // #14video-02: create new method loadSamples and pass it down to Inventory, import sampleFishes
+
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+// import sampleFishes from '../sample-fishes';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+// 		this.loadSamples = this.loadSamples.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	loadSamples() {
+// 		this.setState({
+// 			fishes: sampleFishes
+// 		})
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 				</div>
+
+// 				<Order />
+// 				<Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// // continue in the Inventory component
+
+// // ===========================================================================
+// // #15video-01: create the new Fish component and import it here and render it out
+
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+// import sampleFishes from '../sample-fishes';
+// import Fish from './Fish';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+// 		this.loadSamples = this.loadSamples.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	loadSamples() {
+// 		this.setState({
+// 			fishes: sampleFishes
+// 		})
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 					<ul className="list-of-fishes">
+// 						<Fish />
+// 					</ul>
+// 				</div>
+
+// 				<Order />
+// 				<Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// // ===========================================================================
+// // #15video-03: using Object.keys() to create a array of the key of the fishes and to loop through the fishes using map() after that
+
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+// import sampleFishes from '../sample-fishes';
+// import Fish from './Fish';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+// 		this.loadSamples = this.loadSamples.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	loadSamples() {
+// 		this.setState({
+// 			fishes: sampleFishes
+// 		})
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 					<ul className="list-of-fishes">
+// 						{
+// 							Object.keys(this.state.fishes).map(key => <Fish />)
+// 						}
+// 					</ul>
+// 				</div>
+
+// 				<Order />
+// 				<Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// // ===========================================================================
+// // #15video-04: in console log you can see the error, in React need to be each fish has unique key
+
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+// import sampleFishes from '../sample-fishes';
+// import Fish from './Fish';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+// 		this.loadSamples = this.loadSamples.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	loadSamples() {
+// 		this.setState({
+// 			fishes: sampleFishes
+// 		})
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 					<ul className="list-of-fishes">
+// 						{
+// 							Object.keys(this.state.fishes).map(key => <Fish key={key} />)
+// 						}
+// 					</ul>
+// 				</div>
+
+// 				<Order />
+// 				<Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+
+// ===========================================================================
+// #15video-05: passing the details props in fishes
+
 import React from 'react';
 
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
+import sampleFishes from '../sample-fishes';
+import Fish from './Fish';
 
 class App extends React.Component {
+	constructor() {
+		super();
+		this.addFish = this.addFish.bind(this);
+		this.loadSamples = this.loadSamples.bind(this);
+
+		//getInitial state
+		this.state = {
+			fishes: {},
+			order: {}
+		};
+	}
+
+	addFish(fish) {
+		// update our state
+		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+		// add in our new fish
+		const timestamp = Date.now();
+		fishes[`fish-${timestamp}`] = fish;
+		//set state
+		// this.setState( {fishes: fishes} );
+		// or:
+		this.setState({fishes});
+	}
+
+	loadSamples() {
+		this.setState({
+			fishes: sampleFishes
+		})
+	}
+
 	render() {
 		return (
-			<div className="catch-of-the day">
+			<div className="catch-of-the-day">
 				<div className="menu">
 					<Header tagline="Fresh Seafood Market" />
+					<ul className="list-of-fishes">
+						{
+							Object.keys(this.state.fishes).map(key => <Fish key={key} details={this.state.fishes[key]} />)
+						}
+					</ul>
 				</div>
 
 				<Order />
-				<Inventory />
+				<Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
 			</div>
 		)
 	}
 }
 
 export default App;
-
-// ======================================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// go to the Fish Component
