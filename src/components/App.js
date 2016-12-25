@@ -1193,6 +1193,218 @@
 // ===========================================================================
 // #19video-02: check if any order is in localStorages in componentWillMount
 
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+// import sampleFishes from '../sample-fishes';
+// import Fish from './Fish';
+// import base from '../base';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+// 		this.loadSamples = this.loadSamples.bind(this);
+// 		this.addToOrder = this.addToOrder.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	componentWillMount() {
+// 		// this run right before App.js is rendered
+// 		this.ref = base.syncState(`${this.props.params.storeId}/fishes`,
+// 		{
+// 			context: this,
+// 			state: 'fishes'
+// 		});
+// 		// check if there is any order in localStorage:
+// 		const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+// 		if(localStorageRef) {
+// 			// udpate our App.js component's order state
+// 			this.setState({
+// 				order: JSON.parse(localStorageRef)
+// 			})
+// 		}
+// 	}
+
+// 	componentWillUnmount(){
+// 		base.removeBinding(this.ref);
+// 	}
+
+// 	componentWillUpdate(nextProps, nextState) {
+// 		localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	loadSamples() {
+// 		this.setState({
+// 			fishes: sampleFishes
+// 		})
+// 	}
+
+// 	addToOrder(key) {
+// 		// copy the current state of order
+// 		const order = {...this.state.order};
+// 		// update or add new number of fish to order
+// 		order[key] = order[key] + 1 || 1;
+// 		// update our state of order
+// 		this.setState({ order });
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 					<ul className="list-of-fishes">
+// 						{
+// 							Object.keys(this.state.fishes).map(key => <Fish key={key} index={key}details={this.state.fishes[key]} addToOrder={this.addToOrder}/>)
+// 						}
+// 					</ul>
+// 				</div>
+
+// 				<Order
+// 					fishes={this.state.fishes}
+// 					order={this.state.order}
+// 					params={this.props.params}
+// 				/>
+// 				<Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+// next video #20
+
+// ===========================================================================
+// #20video-01: pass down the fishes props to Inventory component
+
+// import React from 'react';
+
+// import Header from './Header';
+// import Order from './Order';
+// import Inventory from './Inventory';
+// import sampleFishes from '../sample-fishes';
+// import Fish from './Fish';
+// import base from '../base';
+
+// class App extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.addFish = this.addFish.bind(this);
+// 		this.loadSamples = this.loadSamples.bind(this);
+// 		this.addToOrder = this.addToOrder.bind(this);
+
+// 		//getInitial state
+// 		this.state = {
+// 			fishes: {},
+// 			order: {}
+// 		};
+// 	}
+
+// 	componentWillMount() {
+// 		// this run right before App.js is rendered
+// 		this.ref = base.syncState(`${this.props.params.storeId}/fishes`,
+// 		{
+// 			context: this,
+// 			state: 'fishes'
+// 		});
+// 		// check if there is any order in localStorage:
+// 		const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+// 		if(localStorageRef) {
+// 			// udpate our App.js component's order state
+// 			this.setState({
+// 				order: JSON.parse(localStorageRef)
+// 			})
+// 		}
+// 	}
+
+// 	componentWillUnmount(){
+// 		base.removeBinding(this.ref);
+// 	}
+
+// 	componentWillUpdate(nextProps, nextState) {
+// 		localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
+// 	}
+
+// 	addFish(fish) {
+// 		// update our state
+// 		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+// 		// add in our new fish
+// 		const timestamp = Date.now();
+// 		fishes[`fish-${timestamp}`] = fish;
+// 		//set state
+// 		// this.setState( {fishes: fishes} );
+// 		// or:
+// 		this.setState({fishes});
+// 	}
+
+// 	loadSamples() {
+// 		this.setState({
+// 			fishes: sampleFishes
+// 		})
+// 	}
+
+// 	addToOrder(key) {
+// 		// copy the current state of order
+// 		const order = {...this.state.order};
+// 		// update or add new number of fish to order
+// 		order[key] = order[key] + 1 || 1;
+// 		// update our state of order
+// 		this.setState({ order });
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div className="catch-of-the-day">
+// 				<div className="menu">
+// 					<Header tagline="Fresh Seafood Market" />
+// 					<ul className="list-of-fishes">
+// 						{
+// 							Object.keys(this.state.fishes).map(key => <Fish key={key} index={key}details={this.state.fishes[key]} addToOrder={this.addToOrder}/>)
+// 						}
+// 					</ul>
+// 				</div>
+
+// 				<Order
+// 					fishes={this.state.fishes}
+// 					order={this.state.order}
+// 					params={this.props.params}
+// 				/>
+// 				<Inventory
+// 					addFish={this.addFish}
+// 					loadSamples={this.loadSamples}
+// 					fishes={this.state.fishes}
+// 				/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default App;
+// go to Inventory
+
+// ===========================================================================
+// #20video-04: new method updatedFish and pass it down to Inventory component
+
 import React from 'react';
 
 import Header from './Header';
@@ -1208,6 +1420,7 @@ class App extends React.Component {
 		this.addFish = this.addFish.bind(this);
 		this.loadSamples = this.loadSamples.bind(this);
 		this.addToOrder = this.addToOrder.bind(this);
+		this.updatedFish = this.updatedFish.bind(this);
 
 		//getInitial state
 		this.state = {
@@ -1243,7 +1456,7 @@ class App extends React.Component {
 
 	addFish(fish) {
 		// update our state
-		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it :D
+		const fishes = {...this.state.fishes}; // take the current state of fishes and spread it = make a copy of it
 		// add in our new fish
 		const timestamp = Date.now();
 		fishes[`fish-${timestamp}`] = fish;
@@ -1251,6 +1464,12 @@ class App extends React.Component {
 		// this.setState( {fishes: fishes} );
 		// or:
 		this.setState({fishes});
+	}
+
+	updatedFish(key, updatedFish) {
+		const fishes = {...this.state.fishes};
+		fishes[key] = updatedFish;
+		this.setState({ fishes });
 	}
 
 	loadSamples() {
@@ -1285,11 +1504,16 @@ class App extends React.Component {
 					order={this.state.order}
 					params={this.props.params}
 				/>
-				<Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+				<Inventory
+					addFish={this.addFish}
+					loadSamples={this.loadSamples}
+					fishes={this.state.fishes}
+					updatedFish={this.updatedFish}
+				/>
 			</div>
 		)
 	}
 }
 
 export default App;
-// constinue with video #19
+// go to Inventory.js
