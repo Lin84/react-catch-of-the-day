@@ -189,7 +189,7 @@
 // // go to App.js component to create new method: updated Fish
 
 // ======================================================================================
-// #20video-05: applying the updatedFish method to all input
+// #20video-05: applying the updatedFish method to all input 
 
 import React from 'react';
 import AddFishForm from './AddFishForm';
