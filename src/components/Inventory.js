@@ -154,7 +154,7 @@
 // 			// computed property:
 // 			[e.target.name]: e.target.value
 // 		}
-// 		console.log(updatedFish); 
+// 		console.log(updatedFish);
 // 	}
 
 // 	renderInventory(key) {
@@ -189,55 +189,112 @@
 // // go to App.js component to create new method: updated Fish
 
 // ======================================================================================
-// #20video-05: applying the updatedFish method to all input 
+// #20video-05: applying the updatedFish method to all input
+
+// import React from 'react';
+// import AddFishForm from './AddFishForm';
+
+// class Inventory extends React.Component {
+// 	constructor() {
+// 		super();
+// 		this.renderInventory = this.renderInventory.bind(this);
+// 		this.handleChange = this.handleChange.bind(this);
+// 	}
+
+// 	handleChange(e, key) {
+// 		const fish = this.props.fishes[key];
+// 		// take the copy of the fish and update it with new data
+// 		const updatedFish = {
+// 			...fish,
+// 			// computed property:
+// 			[e.target.name]: e.target.value
+// 		}
+// 		this.props.updatedFish(key, updatedFish);
+// 	}
+
+// 	renderInventory(key) {
+// 		const fish = this.props.fishes[key];
+// 		return(
+// 			<div className="fish-edit" key={key}>
+// 				<input type="text" name="name" value={fish.name} placeholder="fish name" onChange={(e) => this.handleChange(e, key)}/>
+// 				<input type="text" name="price" value={fish.price} placeholder="fish price" onChange={(e) => this.handleChange(e, key)}/>
+// 				<select type="text" name="status" value={fish.status} placeholder="fish status" onChange={(e) => this.handleChange(e, key)}>
+// 					<option value="available">Fresh!</option>
+// 					<option value="unavailable">Sold Out!</option>
+// 				</select>
+// 				<textarea type="text" name="desc" value={fish.desc} placeholder="fish desc" onChange={(e) => this.handleChange(e, key)}></textarea>
+// 				<input type="text" name="image" value={fish.image} placeholder="fish image" onChange={(e) => this.handleChange(e, key)}/>
+// 			</div>
+// 		)
+// 	}
+
+// 	render() {
+// 		return (
+// 			<div>
+// 				<h2>Inventory</h2>
+// 				{Object.keys(this.props.fishes).map(this.renderInventory)}
+// 				<AddFishForm addFish={this.props.addFish}/>
+// 				<button onClick={this.props.loadSamples}>Load Sample Fishes</button>
+// 			</div>
+// 		)
+// 	}
+// }
+
+// export default Inventory;
+// go to video 21 - remove item from state, go to App.js
+
+// ======================================================================================
+// #21video-02: new props = removeFish(), add button and online remove fish
 
 import React from 'react';
 import AddFishForm from './AddFishForm';
 
 class Inventory extends React.Component {
-	constructor() {
-		super();
-		this.renderInventory = this.renderInventory.bind(this);
-		this.handleChange = this.handleChange.bind(this);
-	}
+    constructor() {
+        super();
+        this.renderInventory = this.renderInventory.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
 
-	handleChange(e, key) {
-		const fish = this.props.fishes[key];
-		// take the copy of the fish and update it with new data
-		const updatedFish = {
-			...fish,
-			// computed property:
-			[e.target.name]: e.target.value
-		}
-		this.props.updatedFish(key, updatedFish);
-	}
+    handleChange(e, key) {
+        const fish = this.props.fishes[key];
+        // take the copy of the fish and update it with new data
+        const updatedFish = {
+            ...fish,
+            // computed property:
+            [e.target.name]: e.target.value
+        }
+        this.props.updatedFish(key, updatedFish);
+    }
 
-	renderInventory(key) {
-		const fish = this.props.fishes[key];
-		return(
-			<div className="fish-edit" key={key}>
-				<input type="text" name="name" value={fish.name} placeholder="fish name" onChange={(e) => this.handleChange(e, key)}/>
-				<input type="text" name="price" value={fish.price} placeholder="fish price" onChange={(e) => this.handleChange(e, key)}/>
-				<select type="text" name="status" value={fish.status} placeholder="fish status" onChange={(e) => this.handleChange(e, key)}>
-					<option value="available">Fresh!</option>
-					<option value="unavailable">Sold Out!</option>
-				</select>
-				<textarea type="text" name="desc" value={fish.desc} placeholder="fish desc" onChange={(e) => this.handleChange(e, key)}></textarea>
-				<input type="text" name="image" value={fish.image} placeholder="fish image" onChange={(e) => this.handleChange(e, key)}/>
-			</div>
-		)
-	}
+    renderInventory(key) {
+        const fish = this.props.fishes[key];
+        return(
+            <div className="fish-edit" key={key}>
+                <input type="text" name="name" value={fish.name} placeholder="fish name" onChange={(e) => this.handleChange(e, key)}/>
+                <input type="text" name="price" value={fish.price} placeholder="fish price" onChange={(e) => this.handleChange(e, key)}/>
+                <select type="text" name="status" value={fish.status} placeholder="fish status" onChange={(e) => this.handleChange(e, key)}>
+                    <option value="available">Fresh!</option>
+                    <option value="unavailable">Sold Out!</option>
+                </select>
+                <textarea type="text" name="desc" value={fish.desc} placeholder="fish desc" onChange={(e) => this.handleChange(e, key)}></textarea>
+                <input type="text" name="image" value={fish.image} placeholder="fish image" onChange={(e) => this.handleChange(e, key)}/>
+                <button onClick={() => this.props.removeFish(key)}>Remove Fish</button>
+            </div>
+        )
+    }
 
-	render() {
-		return (
-			<div>
-				<h2>Inventory</h2>
-				{Object.keys(this.props.fishes).map(this.renderInventory)}
-				<AddFishForm addFish={this.props.addFish}/>
-				<button onClick={this.props.loadSamples}>Load Sample Fishes</button>
-			</div>
-		)
-	}
+    render() {
+        return (
+            <div>
+                <h2>Inventory</h2>
+                {Object.keys(this.props.fishes).map(this.renderInventory)}
+                <AddFishForm addFish={this.props.addFish}/>
+                <button onClick={this.props.loadSamples}>Load Sample Fishes</button>
+            </div>
+        )
+    }
 }
 
 export default Inventory;
+// go to App.js
