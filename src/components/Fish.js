@@ -96,32 +96,67 @@
 // export default Fish;
 // // go to App.js to get the access to the key = create new props = index in Fish
 
+// // =========================================
+// // #16video-06: add
+
+// import React from 'react';
+// import { formatPrice } from '../helpers';
+
+// class Fish extends React.Component{
+// 	render() {
+// 		const { details, index } = this.props;
+// 		const isAvailable = details.status === 'available';
+// 		const buttonText = isAvailable ? 'Add to Order' : 'Solr Out!';
+
+// 		return(
+// 			<li className="menu-fish">
+// 				<img src={details.image} alt={details.name}/>
+// 				<h3 className="fish-name">
+// 					{details.name}
+// 					<span className="price">{formatPrice(details.price)}</span>
+// 				</h3>
+// 				<p>{details.desc}</p>
+// 				<button onClick={() => this.props.addToOrder(index)} disabled={!isAvailable}>{buttonText}</button>
+// 			</li>
+// 		)
+// 	}
+// }
+
+// export default Fish;
+// // go to video #17: displaying the order state with JSX
+// // go to App.js
+
 // =========================================
-// #16video-06: add
+// #23video-04: add propTypes
 
 import React from 'react';
 import { formatPrice } from '../helpers';
 
 class Fish extends React.Component{
-	render() {
-		const { details, index } = this.props;
-		const isAvailable = details.status === 'available';
-		const buttonText = isAvailable ? 'Add to Order' : 'Solr Out!';
+    render() {
+        const { details, index } = this.props;
+        const isAvailable = details.status === 'available';
+        const buttonText = isAvailable ? 'Add to Order' : 'Solr Out!';
 
-		return(
-			<li className="menu-fish">
-				<img src={details.image} alt={details.name}/>
-				<h3 className="fish-name">
-					{details.name}
-					<span className="price">{formatPrice(details.price)}</span>
-				</h3>
-				<p>{details.desc}</p>
-				<button onClick={() => this.props.addToOrder(index)} disabled={!isAvailable}>{buttonText}</button>
-			</li>
-		)
-	}
+        return(
+            <li className="menu-fish">
+                <img src={details.image} alt={details.name}/>
+                <h3 className="fish-name">
+                    {details.name}
+                    <span className="price">{formatPrice(details.price)}</span>
+                </h3>
+                <p>{details.desc}</p>
+                <button onClick={() => this.props.addToOrder(index)} disabled={!isAvailable}>{buttonText}</button>
+            </li>
+        )
+    }
+}
+
+Fish.propTypes = {
+    details: React.PropTypes.object.isRequired,
+    index: React.PropTypes.string.isRequired,
+    addToOrder: React.PropTypes.func.isRequired,
 }
 
 export default Fish;
-// go to video #17: displaying the order state with JSX
-// go to App.js
+// go to Inventory.js
