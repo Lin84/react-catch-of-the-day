@@ -406,3 +406,4 @@ fishes: React.PropTypes.object.isRequired,
 order: React.PropTypes.object.isRequired,
 removeFromOrder: React.PropTypes.func.isRequired,
 }
+// go to video 24 - Authentication, go to Inventory.js
