@@ -929,3 +929,4 @@ class Inventory extends React.Component {
 
 
 export default Inventory;
+// go to video 30 - Ejecting from create-react-app = only watch
