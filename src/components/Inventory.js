@@ -773,4 +773,8 @@ Inventory.propTypes = {
 }
 
 export default Inventory;
-// go to video 25 - Building React for Production
+// go to video 25 - Building React for Production = just watch => not coding
+// go to video 26 - deploying to the sh = just watch => not coding
+// go to video 27 - Deploying to GitHub Pages = just watch => not coding
+// go to video 28 - Deploying to an Apache Server = just watch => not coding
+// go to video 29 - Future React Today - Property Initializers and getting rid of .bind() => go to App.js
