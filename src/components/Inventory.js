@@ -623,9 +623,165 @@
 // export default Inventory;
 
 
+// // ======================================================================================
+// // #24video-04: add authenticate(), import base, add authHandler, use CDM, add logout()
+// // go to firebase to set up the security rule
+
+// import React from 'react';
+// import AddFishForm from './AddFishForm';
+// import base from '../base';
+
+// class Inventory extends React.Component {
+//     constructor() {
+//         super();
+//         this.authenticate    = this.authenticate.bind(this);
+//         this.authHandler     = this.authHandler.bind(this);
+//         this.handleChange    = this.handleChange.bind(this);
+//         this.logout          = this.logout.bind(this);
+//         this.renderInventory = this.renderInventory.bind(this);
+//         this.renderLogin     = this.renderLogin.bind(this);
+
+//         this.state = {
+//             uid: null,
+//             owner: null
+//         }
+//     }
+
+//     // to fix problem that you need to login after every reload the page
+//     componentDidMount() {
+//         base.onAuth((user) => {
+//             if (user) {
+//                 this.authHandler(null, { user });
+//             }
+//         });
+//     }
+
+//     handleChange(e, key) {
+//         const fish = this.props.fishes[key];
+//         // take the copy of the fish and update it with new data
+//         const updatedFish = {
+//             ...fish,
+//             // computed property:
+//             [e.target.name]: e.target.value
+//         }
+//         this.props.updatedFish(key, updatedFish);
+//     }
+
+//     authenticate(provider) {
+//         console.log(`Trying to log in with ${provider}`);
+//         base.authWithOAuthPopup(provider, this.authHandler);
+//     }
+
+//     logout() {
+//         base.unauth();
+//         this.setState({ uid: null });
+//     }
+
+//     authHandler(err, authData) {
+//         console.log(authData);
+//         if (err) {
+//             console.error(err);
+//             return;
+//         }
+
+//         // grap the store info, go to App.js and pass the storeId
+//         const storeRef = base.database().ref(this.props.storeId);
+
+//         // query the firebase once for the store data
+//         storeRef.once('value', (snapshot) => {
+//             const data = snapshot.val() || {};
+
+//             // claim it as our own if there is not owner already
+//             if(!data.owner) {
+//                 storeRef.set({
+//                     owner: authData.user.uid
+//                 });
+//             }
+
+//             this.setState({
+//                 uid: authData.user.uid,
+//                 owner: data.owner || authData.user.uid
+//             });
+//         });
+//     }
+
+//     renderLogin() {
+//         return (
+//             <nav className="login">
+//                 <h2>Inventory</h2>
+//                 <p>Sign in to manage your store's inventory</p>
+//                 <button className="github" onClick={ () => this.authenticate('github')}>Log in with github</button>
+//                 <button className="facebook" onClick={ () => this.authenticate('facebook')}>Log in with Facebook</button>
+//             </nav>
+//         )
+//     }
+
+//     renderInventory(key) {
+//         const fish = this.props.fishes[key];
+//         return(
+//             <div className="fish-edit" key={key}>
+//                 <input type="text" name="name" value={fish.name} placeholder="fish name" onChange={(e) => this.handleChange(e, key)}/>
+//                 <input type="text" name="price" value={fish.price} placeholder="fish price" onChange={(e) => this.handleChange(e, key)}/>
+//                 <select type="text" name="status" value={fish.status} placeholder="fish status" onChange={(e) => this.handleChange(e, key)}>
+//                     <option value="available">Fresh!</option>
+//                     <option value="unavailable">Sold Out!</option>
+//                 </select>
+//                 <textarea type="text" name="desc" value={fish.desc} placeholder="fish desc" onChange={(e) => this.handleChange(e, key)}></textarea>
+//                 <input type="text" name="image" value={fish.image} placeholder="fish image" onChange={(e) => this.handleChange(e, key)}/>
+//                 <button onClick={() => this.props.removeFish(key)}>Remove Fish</button>
+//             </div>
+//         )
+//     }
+
+//     render() {
+//         const logout = <button onClick={this.logout}>Log Out!</button>
+//         // check if they are no logged in at all
+//         if (!this.state.uid) {
+//             return (
+//                 <div>{this.renderLogin()}</div>
+//             )
+//         }
+
+//         // check if they are owner of the current store
+//         if (this.state.uid !== this.state.owner) {
+//             return(
+//                 <div>
+//                     <p>Sorry you are not the owner of this store !</p>
+//                     {logout}
+//                 </div>
+//             )
+//         }
+//         return (
+//             <div>
+//                 <h2>Inventory</h2>
+//                 {logout}
+//                 {Object.keys(this.props.fishes).map(this.renderInventory)}
+//                 <AddFishForm addFish={this.props.addFish}/>
+//                 <button onClick={this.props.loadSamples}>Load Sample Fishes</button>
+//             </div>
+//         )
+//     }
+// }
+
+// Inventory.propTypes = {
+//     fishes: React.PropTypes.object.isRequired,
+//     updatedFish: React.PropTypes.func.isRequired,
+//     removeFish: React.PropTypes.func.isRequired,
+//     addFish: React.PropTypes.func.isRequired,
+//     loadSamples: React.PropTypes.func.isRequired,
+//     storeId: React.PropTypes.string.isRequired,
+// }
+
+// export default Inventory;
+// go to video 25 - Building React for Production = just watch => not coding
+// go to video 26 - deploying to the sh = just watch => not coding
+// go to video 27 - Deploying to GitHub Pages = just watch => not coding
+// go to video 28 - Deploying to an Apache Server = just watch => not coding
+// go to video 29 - Future React Today - Property Initializers and getting rid of .bind() => go to App.js
+
+
 // ======================================================================================
-// #24video-04: add authenticate(), import base, add authHandler, use CDM, add logout()
-// go to firebase to set up the security rule
+// #29 - 02 - using static = move proptypes inside the component
 
 import React from 'react';
 import AddFishForm from './AddFishForm';
@@ -761,20 +917,15 @@ class Inventory extends React.Component {
             </div>
         )
     }
+    static propTypes = {
+        fishes: React.PropTypes.object.isRequired,
+        updatedFish: React.PropTypes.func.isRequired,
+        removeFish: React.PropTypes.func.isRequired,
+        addFish: React.PropTypes.func.isRequired,
+        loadSamples: React.PropTypes.func.isRequired,
+        storeId: React.PropTypes.string.isRequired,
+    }
 }
 
-Inventory.propTypes = {
-    fishes: React.PropTypes.object.isRequired,
-    updatedFish: React.PropTypes.func.isRequired,
-    removeFish: React.PropTypes.func.isRequired,
-    addFish: React.PropTypes.func.isRequired,
-    loadSamples: React.PropTypes.func.isRequired,
-    storeId: React.PropTypes.string.isRequired,
-}
 
 export default Inventory;
-// go to video 25 - Building React for Production = just watch => not coding
-// go to video 26 - deploying to the sh = just watch => not coding
-// go to video 27 - Deploying to GitHub Pages = just watch => not coding
-// go to video 28 - Deploying to an Apache Server = just watch => not coding
-// go to video 29 - Future React Today - Property Initializers and getting rid of .bind() => go to App.js
